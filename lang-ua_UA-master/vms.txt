@@ -126,16 +126,14 @@ Verifying=
 video for VNC=
 VirtIO Drivers CDRom Bus=
 VirtIO Drivers ISO=
-Virtual Machines=Виртуальные машины
+Virtual Machines=
 VM creation error=
 VM image deletion error=
 VNC Keyboard=
 VNC Password=
 VNC Video Driver=
-VNC=VNC
+VNC=
 Wasnt able to stop the process=Wasn't able to stop the process
 Windows 7XP=Windows 7/XP
 Windows 82012, newer Linux distros=Windows 8/2012, newer Linux distros
 XML View=
-
-; Note: April 2, 2022 - 124 missing translations

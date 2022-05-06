@@ -12,7 +12,7 @@ Automatically split only the top three directory levels as required=
 Automatically split only the top two directory levels as required=
 Comments=
 Compute All=
-Compute=Вычислить
+Compute=
 Disk Shares=
 Do not use reserved names=
 Do not use pool names=
@@ -62,5 +62,3 @@ Use cache pool for new filesdirectories=Use cache pool (for new files/directorie
 User Shares=
 Write=
 You cannot use the following within share names=
-
-; Note: April 2, 2022 - 58 missing translations

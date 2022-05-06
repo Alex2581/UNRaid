@@ -78,6 +78,7 @@ Parity is degraded=Паритет погіршується
 Power=Живлення
 Put system to sleep=Перевести систему в режим сну
 Receive counters=Прийом лічильників
+Reboot the system=Перезавантажити систему
 Received packets=Отримані пакети
 Runtime left=Залишився час виконання
 Scheduled parity check is disabled=Запланована перевірка на парність вимкнена
