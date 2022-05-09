@@ -1,41 +1,41 @@
-Any=
-Daily schedule=
+Any=Будь-який
+Daily schedule=Щоденний розклад
 Day Date=Day / Date
-Hour=
-Hourly schedule=
-Minute=
-Monthly schedule=
-Scheduled Tasks=
-Weekly schedule=
-Day of the month=
-Day of the week=
-Every 2 hours=
-Every 3 hours=
-Every 4 hours=
-Every 6 hours=
-Every 8 hours=
-Every hour=
+Hour=Годину
+Hourly schedule=Погодинний графік
+Minute=Хвилина
+Monthly schedule=Місячний графік
+Scheduled Tasks=Заплановані завдання
+Weekly schedule=Тижневий графік
+Day of the month=День місяця
+Day of the week=День тижня
+Every 2 hours=Кожні 2 години
+Every 3 hours=Кожні 3 години
+Every 4 hours=Кожні 4 години
+Every 6 hours=Кожні 6 години
+Every 8 hours=Кожні 8 години
+Every hour=Щогодини
 HHMM=HH:MM
-SSD TRIM schedule=
-Time of the day=
+SSD TRIM schedule=Розклад SSD TRIM
+Time of the day=Час доби
 
 :trim_schedule_plug:
-> Choose a trim schedule ranging from hourly, daily, weekly and monthly.
+> Виберіть графік обрізки: погодинний, щоденний, щотижневий і щомісячний.
 >
-> The interval determines how often SSD trim will run, it runs in the background.
+> Інтервал визначає, як часто буде виконуватися обробка SSD, вона працює у фоновому режимі.
 :end
 
 :trim_day_of_the_week_plug:
-> Choose a day when the weekly schedule is selected. Otherwise disabled.
+> Виберіть день, коли вибрано тижневий розклад. В іншому випадку вимкнено.
 :end
 
 :trim_day_of_the_month_plug:
-> Choose a date when the monthly schedule is selected. Otherwise disabled.
+> Виберіть дату, коли вибрано місячний розклад. В іншому випадку вимкнено.
 :end
 
 :trim_time_of_the_day_plug:
-> When an hourly schedule is selected this will set the interval in hours. An interval always starts on the whole hour (minute 0).
+> Якщо вибрано погодинний розклад, це встановить інтервал у годинах. Інтервал завжди починається на цілу годину (хвилина 0).
 >
-> For the other schedules choose here the time of the day trim should start.
+> Для інших розкладів виберіть тут час дня, коли має починатися триммер.
 :end
 
