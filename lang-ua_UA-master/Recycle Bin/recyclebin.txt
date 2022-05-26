@@ -38,6 +38,8 @@ Update Recycle Bin Size in Background=
 ; Help
 ;
 :recycle_bin_shares_plug:
+Starting and stopping the Recycle Bin can cause SMB shares to go offline for a short period.
+These actions apply to all shares:
 > Recycle Bin Shares:
 >
 > The shares with Recycle Bin contents will be displayed along with the size of the share's Trash Bin.
@@ -50,17 +52,17 @@ Update Recycle Bin Size in Background=
 :end
 
 :recycle_bin_enable_plug:
-> Set to **Yes** to enable the Recycle Bin functionality for deleted files when the server is started.
+> Set to 'Yes' to enable the Recycle Bin functionality for deleted files when the server is started.
 >
 > To hide the Recycle Bin folder, set 'Hide Dot Files to 'Yes' in the SMB settings <a href='/Settings/SMB'>here</a>.
 :end
 
 :recycle_bin_background_plug:
-> Set to **Yes** to enable the Recycle Bin Size to be updated in the background every five minutes.  This can make the Recycle Bin Settings and Shares pages more responsive and prevent disk spinups when accessing the Recycle Bin.  The Recycle Bin size can take up to five minutes to refresh when this is enabled.
+> Set to 'Yes' to enable the Recycle Bin Size to be updated in the background every minute.  This can make the Recycle Bin Settings and Shares pages more responsive and prevent disk spinups when accessing the Recycle Bin.  The Recycle Bin size can take up to a minute to refresh when this is enabled.
 :end
 
 :recycle_bin_ud_plug:
-> Set to **Yes** to enable the Recycle Bin deleted file functionality on Unassigned Devices drive shares when the Unassigned Devices plugin is installed.  SMB/NFS mounts and iso mounts are excluded from the Recycle Bin functionality on this server.  Enable the Recycle Bin on the remote server where the remote share originates if it is an Unraid server.
+> Set to 'Yes' to enable the Recycle Bin deleted file functionality on Unassigned Devices drive shares when the Unassigned Devices plugin is installed.  SMB/NFS mounts and iso mounts are excluded from the Recycle Bin functionality on this server.  Enable the Recycle Bin on the remote server where the remote share originates if it is an Unraid server.
 :end
 
 :recycle_bin_parameters_plug:
@@ -87,7 +89,7 @@ Update Recycle Bin Size in Background=
 :end
 
 :recycle_bin_excluded_dirs_plug:
-> List of directories to exclude from the Recycle Bin separated by commas.  To specify a particular share directory, use 'share/directory'.  You can specify up to one sub-directory.  Unassigned Devices are specified the same way using 'mountpoint/directory'.  Wild cards '*' and '?' are allowed in the directory name.
+> List of directories to exclude from the Recycle Bin separated by commas.  To specify a particular share directory, use 'share/directory'.  Unassigned Devices are specified the same way using 'mountpoint/directory'.  Wild cards '*' and '?' are allowed in the directory name.
 :end
 
 :recycle_bin_excluded_shares_plug:
@@ -109,11 +111,11 @@ Update Recycle Bin Size in Background=
 :end
 
 :recycle_bin_age_files_notification_plug:
-> When set to **Yes** a notification will be sent when the scheduled remove files task runs.
+> When set to "Yes" a notification will be sent when the scheduled remove files task runs.
 :end
 
 :recycle_bin_log_deleted_files_plug:
-> When set to **Yes** deleted files will be logged.
+> When set to "Yes" deleted files will be logged.
 :end
 
 :recycle_bin_show_log_plug:
@@ -122,3 +124,5 @@ Update Recycle Bin Size in Background=
 > The deleted files will show in the log as unlinked files.
 > Click on the 'Clear' button to clear the log.
 :end
+
+; Note: May 26, 2022 - 36 missing translations

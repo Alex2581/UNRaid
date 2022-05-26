@@ -249,6 +249,7 @@ Method used to specify start and stop points=
 >* The rest of the month this plugin will do nothing as there is no active parity check in progress when the start time for an increment comes around.
 >
 >**CAUTION:**  If the array is stopped while an array operation is incomplete then the progress so far is lost and it can only be restarted from the beginning
+>* The parity check will now actually take 10 days elapsed time (10 x 3 = 30) so the parity check will complete on 10th of the month.  
 :end
 
 :parity_tune_increments_plug:
@@ -260,7 +261,10 @@ Method used to specify start and stop points=
 :end
 
 :parity_tune_frequency_plug:
-> The frequency at which parity check increments should be run.<br><br>In normal operation it is expected that the <strong>Daily</strong> option will be the one that most users will want to use so this is the default.   To support any user looking for other frequencies there is the option to set up <strong>Custom</strong> schedules which will allow for more complicated schedules for the Pause and Resume times.  When you use this option you are given the option to specify the time as used by the Linux <a href="https://en.wikipedia.org/wiki/Cron#Overview"  target="_blank">crontab</a> utility
+> The frequency at which parity check increments should be run.
+>
+>In normal operation it is expected that the **Daily** option will be the one that most users will want to use so this is the default.   To support any user looking for other frequencies there is the option to set up **Custom** schedules which will allow for more complicated schedules for the Pause and Resume times.  When you use this option you are given the option to specify the time as used by the Linux <a href="https://en.wikipedia.org/wiki/Cron#Overview"  target="_blank">crontab</a> utility.   
+>In normal operation it is expected that the **Daily** option will be the one that most users will want to use so this is the default.   To support any user looking for other frequencies there is the option to set up **Custom** schedules which will allow for more complicated schedules for the Pause and Resume times.  When you use this option you are given the option to specify the time as used by the Linux <a href="https://en.wikipedia.org/wiki/Cron#Overview"  target="_blank">crontab</a> utility.   
 :end
 
 :parity_tune_manual_plug:
@@ -280,6 +284,7 @@ Method used to specify start and stop points=
 > The frequency at which parity check increments should be run.
 >
 >In normal operation it is expected that the **Daily** option will be the one that most users will want to use so this is the default.   To support any user looking for other frequencies there is the option to set up **Custom** schedules which will allow for more complicated schedules for the Pause and Resume times.  When you use this option you are given the option to specify the time as used by the Linux <a href="https://en.wikipedia.org/wiki/Cron#Overview"  target="_blank">crontab</a> utility.   
+>In normal operation it is expected that the **Daily** option will be the one that most users will want to use so this is the default.   To support any user looking for other frequencies there is the option to set up **Custom** schedules which will allow for more complicated schedules for the Pause and Resume times.  When you use this option you are given the option to specify the time as used by the Linux <a href="https://en.wikipedia.org/wiki/Cron#Overview"  target="_blank">crontab</a> utility.   
 :end
 
 :parity_tune_resume_plug:
@@ -287,6 +292,7 @@ Method used to specify start and stop points=
 >
 >Typically this time would be set to be the start of an idle period overnight.   An appropriate value might be to use the same time that you have specified for a scheduled parity check to start.
 >
+>If the increment period has been set to **Custom** then the hours/minutes fields are hidden and you are instead given the option to set the time in <a href="https://en.wikipedia.org/wiki/Cron#Overview"  target="_blank">crontab</a> format.
 >If the increment period has been set to **Custom** then the hours/minutes fields are hidden and you are instead given the option to set the time in <a href="https://en.wikipedia.org/wiki/Cron#Overview"  target="_blank">crontab</a> format.
 :end
 
@@ -299,11 +305,13 @@ Method used to specify start and stop points=
 >If the increment period has been set to **Custom** then the hours/minutes fields are hidden and you are instead given the option to set the time in <a href="https://en.wikipedia.org/wiki/Cron#Overview"  target="_blank">crontab</a> format.
 >
 >You also want to make sure that the time allocated to running increments is sufficient to expect the parity check to run to completion before the next check is scheduled to start.   Since most people only schedule parity checks to run infrequently (e.g. Monthly or Quarterly) then this is unlikely to be an issue but it is something to take into consideration.  
+>If the increment period has been set to **Custom** then the hours/minutes fields are hidden and you are instead given the option to set the time in <a href="https://en.wikipedia.org/wiki/Cron#Overview"  target="_blank">crontab</a> format.
 :end
 
 :parity_tune_notify_plug:
 > Setting this option to <strong>Yes</strong> means that you will be sent a notification every time the plugin Pauses or Resumes an array operation.
 >If you would rather not get such notifications then leave this option set to **No**.
+>The notification is sent as a **Notice** category message to the targets specified under *<a href="Settings/Notifications">Settings->Notification Settings</a>*.
 >The notification is sent as a **Notice** category message to the targets specified under *<a href="Settings/Notifications">Settings->Notification Settings</a>*.
 :end
 
@@ -371,6 +379,7 @@ Method used to specify start and stop points=
 
 :parity_tune_temp_notify_plug:
 > Setting this option to **Yes** means that you will be sent a notification every time the plugin Pauses or Resumes an array operation due to the temperature of your drives.<br>If you would rather not get such notifications then leave this option set to **No**.    The notification is sent as a **Notice** category message to the targets specified under *<a href="Settings/Notifications">Settings->Notification Settings</a>*.
+> Setting this option to **Yes** means that you will be sent a notification every time the plugin Pauses or Resumes an array operation due to the temperature of your drives.<br>If you would rather not get such notifications then leave this option set to **No**.    The notification is sent as a **Notice** category message to the targets specified under *<a href="Settings/Notifications">Settings->Notification Settings</a>*.
 :end
 
 :parity_tune_shutdown_plug:
@@ -382,6 +391,7 @@ Method used to specify start and stop points=
 >When the server is started up again after such a shutdown then when the array is started you will be notified that a temperature related shutdown happened in case you were not aware of the reason.
 >
 >**CAUTION:**  If the array is stopped while an array operation is incomplete then the progress so far is lost and it can only be restarted from the beginning.
+> The temperatures are checked against the thresholds set for the **Critical** disk temperature levels. If a Critical temperature has been defined for an individual drive (accessed by clicking on the drive in the Main tab) then this is the value used.  If not the global setting (*<a href="Settings/DisplaySettings">Settings->Display Settings</a>) will be used.
 :end
 
 :parity_tune_critical_plug:
@@ -455,3 +465,5 @@ Method used to specify start and stop points=
 > that extracts entries from the syslog that have shown any sectors for which any parity
 > sector is displayed and whether the it was being corrected or is a parity error.
 :end
+
+; Note: May 26, 2022 - 178 missing translations

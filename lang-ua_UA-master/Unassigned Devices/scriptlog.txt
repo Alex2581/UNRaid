@@ -1,1 +1,3 @@
 Script Log=
+
+; Note: May 26, 2022 - 1 missing translations

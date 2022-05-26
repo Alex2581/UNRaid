@@ -808,7 +808,7 @@ page for that disk.
 :end
 
 :disk_spinup_groups_help:
-If set to 'Yes' then the spinup groups feature is enabled.
+If set to 'Yes' then the [Spinup Groups](/Help) feature is enabled.
 :end
 
 :disk_default_partition_format_help:
@@ -949,8 +949,7 @@ This section is used to set the global settings for all disks. It is possible to
 Use this field to add template repositories.
 Docker templates are used to facilitate the creation and re-creation of Docker containers.  Please setup one per line.
 
-Using repositories is deprecated.  For instructions on how to have Community Applications utilize private repositories, visit <a href='https://forums.unraid.net/topic/57181-docker-faq/page/2/?tab=comments#comment-1018225' target='_blank'>here</a>
-
+For a list of popular community-supported repositories, visit here: <a href="http://lime-technology.com/forum/index.php?topic=37958.0" target="_blank">http://lime-technology.com/forum/index.php?topic=37958.0</a>
 :end
 
 :docker_enable_help:
@@ -1131,40 +1130,80 @@ Enable (default) or disable the UPnP function on the server. This function allow
 :end
 
 :mgmt_use_ssl_tls_help:
-Determines how the webGUI responds to HTTP and/or HTTPS protocol on your LAN.
+Determines how the webGUI responds to HTTP and/or HTTPS protocol.
 
-Select **No** to use HTTP. To access your server use this URL:
+Select **No** to disable HTTPS
 
-`http://<server-name>.<localTLD>`
+Select **Yes** to enable HTTPS and redirect HTTP to HTTPS. If a Let's Encrypt SSL certificate has not
+been provisioned, then an automatically generated self-signed SSL certificate will be used.
 
-or this URL:
+Select **Auto** if you are using or plan to use a Let's Encrypt SSL certificate provisioned
+by Lime Technology. Before the certificate is provisioned, the webGUI remains
+in http-mode. After provisioning, the webGUI automatically switches to https-mode. In addition
+two background processes are enabled:
 
-`http://<server-ip-address>`
+- *updatedns* - This starts 30 seconds after server reboot has completed and contacts the Lime Technology
+DNS service to register the servers local IP address. Thereafter it wakes up every 10 minutes in case
+the local IP address has changed again.
 
-Select **Yes** to enable use of an automatically-generated self-signed
-SSL certificate.  Use this URL to access your server:
+- *renewcert* - This starts 60 seconds after server reboot has completed and contacts the Lime Technology
+certificate renewal service to determine if your Let's Encrypt SSL certificate needs to be renewed.
+Thereafter it wakes up every 24 hours. If within 30 days of expiration, a new certificate is automatically
+provisioned and downloaded to your server.
 
-`https://<server-name>.<localTLD>`
+Note: After provisioning a Let's Encrypt SSL certificate you may turn off the *updatedns* and *newcert*
+background processes by changing this field to **Yes**.
 
-Note that use of a self-signed SSL certificate will generate a browser
-warning.
+**nginx certificate handling details**
 
-Select **Auto** to enable *exclusive* use of an Unraid.net SSL
-certificate for https access (see **Provision** below).  Note that a DNS
-server must be reachable.
+The nginx startup script looks for a SSL certificate on the USB boot flash in this order:<br>
+`config/ssl/certs/certificate_bundle.pem`<br>
+`config/ssl/certs/<server-name>_unraid_bundle.pem`
 
-Important: **Auto** may not be selectable if your router or upstream DNS server has
+If neither file exists, a self-signed SSL certificate is automatically created and stored in<br>
+`config/ssl/certs/<server-name>_unraid_bundle.pem`<br>
+
+Provisioning a Let's Encrypt certificate writes the certificate to<br>
+`config/ssl/certs/certificate_bundle.pem`<br>
+
+**nginx stapling support**
+
+Whether nginx enables OCSP Staping is determined by which certificate is in use:<br>
+`config/ssl/certs/certificate_bundle.pem` => Yes<br>
+`config/ssl/certs/<server-name>_unraid_bundle.pem` => No
+:end
+
+:mgmt_http_port_help:
+Enter the HTTP port, default port is 80.
+:end
+
+:mgmt_https_port_help:
+Enter the HTTPS port, default port is 443.
+:end
+
+:mgmt_local_tld_help:
+Enter your local Top Level Domain. May be blank.
+:end
+
+:mgmt_certificate_expiration_help:
+**Provision** may be used to allocate a *free* SSL Certficiate from [Let's Encrypt](https://letsencrypt.org/) and
+then upload to your server. Note: We **highly** recommend using a static IP address in this case.
+
+**Update DNS** may be used to manually initiate updating the DNS A-record of your server FQDN on unraid.net. Note
+that DNS propagation change could take anywhere from 1 minute to several hours (we set TTL to 60 seconds).
+
+Note: **Provision** may fail if your router or upstream DNS server has
 [DNS rebinding protection](https://en.wikipedia.org/wiki/DNS_rebinding) enabled. DNS rebinding
 protection prevents DNS from resolving a private IP network range. DNS rebinding protection is meant as
-a security feature on a LAN that may include legacy devices with buggy/insecure "web" interfaces.
+a security feature on a local LAN which includes legacy devices with buggy/insecure "web" interfaces.
 
 One source of DNS rebinding protection could be your ISP DNS server. In this case the problem may be solved by
-switching to a different DNS server such as OpenDNS where DNS rebinding proection can be turned off.
+switching to a different DNS server such as Google's public DNS.
 
 More commonly, DNS rebinding protection could be enabled in your router. Most consumer routers do not implement DNS
 rebinding protection; but, if they do, a configuration setting should be available to turn it off.
 
-Higher end routers usually do enable DNS rebinding protection. Typically there are ways of turning it off
+Higher end routers usually do enable DNS rebinding protection however. Typically there are ways of turning it off
 entirely or selectively based on domain. Examples:
 
 **DD-WRT:** If you are using "dnsmasq" with DNS rebinding protection enabled, you can add this line to your router
@@ -1184,75 +1223,8 @@ configuration file:
 **OpenDNS:** Go to Settings -> Security and *remove* the checkbox next to
  "Suspicious Responses - Block internal IP addresses". It is an all-or-nothing setting.
 
-When all else fails, you may be able create an entry in your PC's *hosts* file to override external DNS and
+When all else fails, you can create an entry in your PC's *hosts* file to override external DNS and
 directly resolve your servers unraid.net FQDN to its local IP address.
-:end
-
-:mgmt_http_port_help:
-Enter the HTTP port, default port is 80.
-:end
-
-:mgmt_https_port_help:
-Enter the HTTPS port, default port is 443.
-:end
-
-:mgmt_local_tld_help:
-Enter your local Top Level Domain. May be blank.
-:end
-
-:mgmt_certificate_expiration_help:
-**Provision** may be used to install a *free* Unraid.net SSL Certificate from
-[Let's Encrypt](https://letsencrypt.org/).
-
-The Unraid.net SSL certificate can be used in two ways.  First,
-having the certificate present enables your server to respond to an
-alternate URL of the form:
-
-`https://<lan-ip>.<hash>.myunraid.net`
-
-The `<hash>` value is a 40-character hex string (160 bits) unique to
-your server.  A Lime Technology DDNS server will return your `<lan-ip>`
-in response to a DNS request on this URL. The certificate Subject is
-set to `*.<hash>.myunraid.net` thus validating the https connection.
-
-You may enable this URL exclusively on your LAN by setting **Use
-SSL/TLS** to **Auto**.
-
-The second use for an Unraid.net certificate is to enable secure
-remote access available through the My Servers plugin feature.  Note
-that it is possible to use secure remote access in conjunction with
-insecure local access.
-
-After an Unraid.net SSL Certificate has been installed, two
-background services are activated while the server is signed in to unraid.net:
-
-- *updatedns* - This starts 30 seconds after server reboot has completed and contacts the Lime Technology
-DNS service to register the servers local IP address. Thereafter it wakes up every 10 minutes in case
-the local IP address has changed.
-
-- *renewcert* - This starts 60 seconds after server reboot has completed and contacts the Lime Technology
-certificate renewal service to determine if your Unraid.net SSL certificate needs to be renewed.
-Thereafter it wakes up every 24 hours. If within 30 days of expiration, a new certificate is automatically
-provisioned and downloaded to your server.
-
-**Delete** may be used to delete the Unraid.net certificate file.
-
-**nginx certificate handling details**
-
-nginx makes use of two certificate files stored on the USB flash boot device:<br>
-
-- a self-signed certificate: `config/ssl/certs/<server-name>_unraid_bundle.pem`
-
-- an Unraid.net certificate: `config/ssl/certs/certificate_bundle.pem`
-
-The self-signed SSL certificate file is automatically created when nginx
-starts; and re-created if the server hostname or local TLD is changed.
-
-**nginx stapling support**
-
-Whether nginx enables OCSP Staping is determined by which certificate is in use:<br>
-`config/ssl/certs/certificate_bundle.pem` => Yes<br>
-`config/ssl/certs/<server-name>_unraid_bundle.pem` => No
 :end
 
 :ftp_server_help:
@@ -1288,12 +1260,6 @@ will not appear in Windows folder lists unless you have "Show hidden files, fold
 in Windows Folder Options.
 
 If set to 'No' then dot files will appear in folder lists the same as any other file.
-:end
-
-:smb_multi_channel_help:
-When set to 'Yes' enables SMB Multi Channel support in the server. From
-[microsoft](https://docs.microsoft.com/en-us/azure-stack/hci/manage/manage-smb-multichannel):
-"SMB Multichannel enables file servers to use multiple network connections simultaneously."
 :end
 
 :smb_enhanced_macos_help:
@@ -1462,27 +1428,7 @@ You can experiment with these settings as desired, they only affect visual prope
 :end
 
 :display_font_size_help:
-Changes the font size in the GUI. This is a per device setting.
-:end
-
-:display_tty_size_help:
-Changes the font size of terminal windows.
-:end
-
-:display_page_view_help:
-Changes how certain pages are displayed. In **Tabbed** mode different sections will be displayed in different tabs,
-while in **Non-tabbed** mode sections are displayed under each other.
-:end
-
-:display_users_menu_help:
-The Users Menu can be part of the header or part of the Settings menu.
-You can move the Users Menu if insufficient space in the header is available to display all menus.
-:end
-
-:display_listing_height_help:
-**Automatic** : long listings are displayed as is, and the user needs to scroll the whole page to see the bottom
-
-**Fixed** : long listings are displayed in a window with a fixed size, user can scroll this window to see the bottom
+This is a per device setting
 :end
 
 :display_wwn_device_id_help:
@@ -1870,22 +1816,6 @@ When a **yearly** or **custom** schedule is selected then choose here the prefer
 Choose here whether any parity errors found during the check, need to be corrected on the parity disk or not.
 :end
 
-:parity_cumulative_check_help:
-Change this setting to **Yes** to divide long duration parity checks over multiple periods. This is useful when the system needs to be available and a parity check runs only during off hours.
-:end
-
-:parity_accumulation_frequency_help:
-Specifies how accumulation periods are executed.
-
-**Daily** means every subsequent day the parity check continues until finished
-
-**Weekly** means every subsequent week the parity check continues until finished
-:end
-
-:parity_accumulation_duration_help:
-Specifies how long each accumulated period runs, expressed in hours. The **Time of the day** speficies the start time of the period.
-:end
-
 :mover_schedule_help:
 Choose a mover schedule ranging from hourly, daily, weekly and monthly.
 
@@ -2065,10 +1995,6 @@ Give the container a name or leave it as default.  Two characters minimum.  Firs
 A description for the application container.  Supports basic HTML mark-up.
 :end
 
-:docker_client_additional_requirements_help:
-Any additional requirements the container has.  Supports basic HTML mark-up.
-:end
-
 :docker_client_repository_help:
 The repository for the application on the Docker Registry.  Format of authorname/appname.
 Optionally you can add a : after appname and request a specific version for the container image.
@@ -2080,10 +2006,6 @@ Link to a support thread on Lime-Technology's forum.
 
 :docker_client_project_page_help:
 Link to the project page (eg: www.plex.tv)
-:end
-
-:docker_client_readme_help:
-Link to a readme file or page
 :end
 
 :docker_client_hub_url_help:
@@ -2185,20 +2107,6 @@ The Up-to-date status indicates your local configuration matches that stored on 
 Click Deactivate to pause communication with your remote on unraid.net.
 
 Click Reinitialize to erase all change history in both local and unraid.net remote.
-:end
-
-:unraidnet_extraorigins_help:
-Provide a comma separated list of urls that are allowed to access the unraid-api (https://abc.myreverseproxy.com,https://xyz.rvrsprx.com,…)
-:end
-
-:myservers_remote_t2fa_help:
-When Transparent 2FA for Remote Access is enabled, you will access your server by clicking the "Remote Access" link on the <a href="https://forums.unraid.net/my-servers/" target="_blank" rel="noopener noreferrer">My Servers dashboard</a>. The system will transparently request a 2FA token from your server and embed it in the server's login form. Your server will deny any Remote Access login attempt that does not include a valid token. Each token can be used only once, and is only valid for five minutes.
-:end
-
-:myservers_local_t2fa_help:
-When Transparent 2FA for Local Access is enabled, you will access your server by clicking the "Local Access" link on the <a href="https://forums.unraid.net/my-servers/" target="_blank" rel="noopener noreferrer">My Servers dashboard</a>. The system will transparently request a 2FA token from your server and embed it in the server's login form. Your server will deny any Local Access login attempt that does not include a valid token. Each token can be used only once, and is only valid for five minutes.
-
-This is fairly extreme for Local Access, and in most cases is not needed. It requires a solid Internet connection. If you need to access the webgui while the Internet is down, SSH to the server and run 'use_ssl no', this will give you access via http://<?=$nginx['NGINX_LANIP']?><?=$nginx['NGINX_PORT'] !== '80' ? ':'.$nginx['NGINX_PORT'] : '' ?>
 :end
 
 ; WireGuard help text
@@ -2324,4 +2232,78 @@ Normally this isn't a problem since a WireGuard tunnel is automatically re-estab
 A keepalive timer will hold the connection open, for most situations a timer value of 20 seconds is suitable.
 
 Note that for mobile devices this will use more data and drain your battery faster.
+:end
+
+; New entries (1) - 2021-09-18
+
+:docker_client_additional_requirements_help:
+Any additional requirements the container has.  Supports basic HTML mark-up.
+:end
+
+; New entries (1) - 2021-11-07
+
+:docker_client_readme_help:
+Link to a readme file or page
+:end
+
+; New entries (3) - 2021-12-16
+
+:parity_cumulative_check_help:
+Change this setting to **Yes** to divide long duration parity checks over multiple periods. This is useful the system needs to be available and a parity check runs only during off hours.
+:end
+
+:parity_accumulation_frequency_help:
+Specifies how accumulation periods are executed.
+
+**Daily** means every subsequent day the parity check continuous until finished
+
+**Weekly** means every subsequent week the parity check continuous until finished
+:end
+
+:parity_accumulation_duration_help:
+Specifies how long each accumulated period runs, expressed in hours. The **Time of the day** speficies the start time of the period.
+:end
+
+; New entries (7) - 2022-02-19
+
+:display_tty_size_help:
+Changes the font size of terminal windows.
+:end
+
+:display_page_view_help:
+Changes how certain pages are displayed. In **Tabbed** mode different sections will be displayed in different tabs,
+while in **Non-tabbed** mode sections are displayed under each other.
+:end
+
+:display_users_menu_help:
+The Users Menu can be part of the header or part of the Settings menu.
+You can move the Users Menu if insufficient space in the header is available to display all menus.
+:end
+
+:display_listing_height_help:
+**Automatic** : long listings are displayed as is, and the user needs to scroll the whole page to see the bottom
+
+**Fixed** : long listings are displayed in a window with a fixed size, user can scroll this window to see the bottom
+:end
+
+:unraidnet_extraorigins_help:
+Provide a comma separated list of urls that are allowed to access the unraid-api (https://abc.myreverseproxy.com,https://xyz.rvrsprx.com,…)
+:end
+
+:myservers_remote_t2fa_help:
+When Transparent 2FA for Remote Access is enabled, you will access your server by clicking the "Remote Access" link on the <a href="https://forums.unraid.net/my-servers/" target="_blank" rel="noopener noreferrer">My Servers dashboard</a>. The system will transparently request a 2FA token from your server and embed it in the server's login form. Your server will deny any Remote Access login attempt that does not include a valid token. Each token can be used only once, and is only valid for five minutes.
+:end
+
+:myservers_local_t2fa_help:
+When Transparent 2FA for Local Access is enabled, you will access your server by clicking the "Local Access" link on the <a href="https://forums.unraid.net/my-servers/" target="_blank" rel="noopener noreferrer">My Servers dashboard</a>. The system will transparently request a 2FA token from your server and embed it in the server's login form. Your server will deny any Local Access login attempt that does not include a valid token. Each token can be used only once, and is only valid for five minutes.
+
+This is fairly extreme for Local Access, and in most cases is not needed. It requires a solid Internet connection. If you need to access the webgui while the Internet is down, SSH to the server and run 'use_ssl no', this will give you access via http://<?=['NGINX_LANIP']?><?=['NGINX_PORT'] !== '80' ? ':'.['NGINX_PORT'] : '' ?>
+:end
+
+; New entries (1) - 2022-05-07
+
+:smb_multi_channel_help:
+When set to 'Yes' enables SMB Multi Channel support in the server. From
+[microsoft](https://docs.microsoft.com/en-us/azure-stack/hci/manage/manage-smb-multichannel):
+"SMB Multichannel enables file servers to use multiple network connections simultaneously." 
 :end

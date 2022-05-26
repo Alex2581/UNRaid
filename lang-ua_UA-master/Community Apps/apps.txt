@@ -411,3 +411,5 @@ Would you like CA to attempt to determine any applicable paths, ports, and varia
 An error occurred - Could not determine configuration=
 ; WebGui
 Click Install to download and install the Community Applications plugin=Click **Install** to download and install the **Community Applications** plugin
+
+; Note: May 26, 2022 - 309 missing translations
