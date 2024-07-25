@@ -1,11 +1,13 @@
 Add=Додати
 Auto Mount USB Devices=Автоматичне монтування USB-пристроїв
-Change Disk UUID=Змінити UUID диска
+Change Disk UUID=Змініть UUID диска
 Change UUID=Змінити UUID
-Change the disk UUID=Змініть UUID диска
+Change Disk UUID=Змініть UUID диска
+Command times=Командний час
 Common Script=Загальний сценарій
 Common Settings=Загальні налаштування
 Destructive Mode=Руйнівний Режим
+Disabled=Вимкнено
 Disk spin down is managed by Unraid=Розкруткою диска керує Unraid
 Enable NFS export=Увімкнути експорт NFS
 Enable SMB Security=Увімкнути безпеку SMB
@@ -17,8 +19,13 @@ NFS Security=Безпека NFS
 NFS Settings=Налаштування NFS
 NFS must be enabled in Settings->NFS to enable NFS Export=Щоб увімкнути експорт NFS, потрібно ввімкнути NFS у меню Налаштування->NFS
 NFS Version to use when Mounting Remote Shares=Версія NFS для використання під час монтування віддалених спільних ресурсів
+Public=Публічний
+Private=Приватний
+Private Hidden=Приватний Прихований
+Refresh and Update=Оновити і Оновлення
+Remote Share Mount Wait Time=Час очікування підключення віддаленого спільного доступу
 Rule=Правило
-SMB Security=Безпека SMB
+SMB Settings=SMB Settings
 Select Disk=Вибрати Диск
 Set Encrypted Disk Password=Встановити пароль зашифрованого диска
 Set Password=Встановити пароль
@@ -29,9 +36,10 @@ Specify SMB Version when Mounting Remote Shares=Укажіть версію SMB 
 Spin down disks=Зупинка обертання дисків
 The Unassigned Devices Plus plugin must be installed to enable Destructive Mode=Щоб увімкнути руйнівний режим, необхідно встановити плагін Unassigned Devices Plus
 to SMB share config=до конфігурації спільного доступу SMB
+Udev and Hotplug=Udev and Hotplug
 Unassigned Devices=Unassigned Devices
 Unraid 6.10 or later is required for NFSv4 support=Unraid 6.10 або новіша версія необхідна для підтримки NFSv4
-Use only when directed for support=Використовуйте лише за призначенням для підтримки
+Use only when directed for support because the messages can flood the log=Використовуйте лише тоді, коли це призначено для підтримки, оскільки повідомлення можуть переповнювати журнал
 
 ; Help
 ;
@@ -64,6 +72,11 @@ Use only when directed for support=Використовуйте лише за п
 > Якщо вам не потрібна зворотна сумісність, залиште для неї значення **Ні**.
 :end
 
+:ud_settings_remote_share_wait_plug:
+> Це час у секундах, який потрібно очікувати перед монтуванням віддалених спільних ресурсів під час першого запуску масиву.
+>
+:end
+
 :ud_settings_specify_smb_vers_plug:
 > Установіть значення **Ні** для непризначених пристроїв, щоб спочатку спробувати підключити віддалені спільні ресурси, не встановлюючи версію SMB під час підключення.
 >
@@ -93,9 +106,10 @@ Use only when directed for support=Використовуйте лише за п
 :ud_settings_smb_security_plug:
 > Встановіть рівень безпеки SMB для користувача.
 >
+> + Виберіть **Ні**, щоб вимкнути спільний доступ через SMB.
+> + Якщо встановити значення **Public**, надаватиметься спільний доступ до пристроїв, віддалених спільних ресурсів SMB/NFS і підключення iso Public із доступом для читання та запису.
 > + Установіть значення **Так**, щоб увімкнути безпеку SMB на спільних ресурсах SMB. Налаштуйте доступ користувача, щоб дозволити доступ і чи може користувач писати в спільний ресурс.
 > + Установіть значення **Приховано**, щоб увімкнути безпеку SMB для спільних ресурсів SMB, які не будуть видимі. Налаштуйте доступ користувача, щоб дозволити доступ і чи може користувач писати в спільний ресурс.
-> + Для параметра **Ні** буде надано спільний доступ до пристроїв, SMB/NFS і кріплень iso Public із доступом для читання та запису.
 :end
 
 :ud_settings_case_sensitive_plug:
@@ -114,8 +128,14 @@ Use only when directed for support=Використовуйте лише за п
 > Недоліком є ​​те, що він перекриває дозволи групи Linux. Якщо ви не впевнені, чи потрібно це чи ні, залиште його ввімкненим.
 :end
 
+:ud_settings_nfs_security_plug:
+> Виберіть **Так**, щоб експортувати непризначені пристрої зі спільним використанням NFS. Спільні ресурси експортуються для загального доступу з доступом для читання та запису або для приватного за допомогою встановленого вами правила. Доступ контролюється налаштуваннями дозволів на файли та папки.
+:end
+
 :ud_settings_nfs_shares_plug:
 > Виберіть **Так**, щоб експортувати спільні файли NFS. Спільні ресурси експортуються для загального доступу з доступом для читання та запису або для приватного за допомогою встановленого вами правила. Доступ контролюється налаштуваннями дозволів на файли та папки.
+>
+> **Примітка.** Нормальним правилом, яке використовує UD, є '*(sec=sys,rw,insecure,anongid=100,anonuid=99,all_squash)'.
 :end
 
 :ud_settings_disk_pass_plug:
@@ -124,4 +144,10 @@ Use only when directed for support=Використовуйте лише за п
 
 :ud_settings_change_uuid_plug:
 > Виберіть диск, для якого потрібно змінити UUID. Це корисно, коли диск у форматі XFS видалено з масиву та має той самий UUID, що й диск масиву. Щоб змінити UUID, необхідно відключити диск.
+>
+> **Примітка.** Не змінюйте UUID об’єднаного диска.
+:end
+
+:ud_settings_zfs_upgrade_plug:
+> Виберіть диск, який потрібно оновити до останньої версії ZFS. Щоб оновити ZFS, необхідно підключити накопичувач.
 :end

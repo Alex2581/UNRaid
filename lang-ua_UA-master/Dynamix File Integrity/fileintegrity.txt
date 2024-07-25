@@ -3,132 +3,132 @@ Array must be Started to use this feature=Для використання ціє
 Automatically protect new and modified files=Автоматичний захист нових і змінених файлів
 BLAKE2=БЛЕЙК2
 Build=Будувати
-Continue=
-Corz=
-Custom files=
-Custom folders=
-Day of the month=
-Day of the week=
-Disk selection=
-Disk verification schedule=
-Dont start=Don't start
-Download Now=
-Dynamix File Integrity=
-Error logging=
-Excluded files=
-Excluded folders and files=
-Excluded folders=
-File Duplicates Check=
-Find=
-Generate Corz Files=
-hash files=
-Hashing method=
-Header menu=
-HHMM=HH:MM
-Import=
-Include duplicate file hashes in Find command=Include duplicate file hashes in **Find** command
-log files=
-Low=
-MD5=
-Output file=
-Placement of file integrity control=
-Process priority=
-Save new hashing results to flash=
-saved files=
-Send notifications=
-SHA2=
-Syslog only=
-Syslog Output file=Syslog & Output file
-Task=
-Time of the day=
-Toggle all=
-Tools menu=
-Verification tasks=
-view hash files=
-view log files=
-view saved files=
-When parity operation is running=
+Continue=Продовжити
+Corz=Corz
+Custom files=Користувацькі файли
+Custom folders=Спеціальні папки
+Day of the month=День місяця
+Day of the week=День тижня
+Disk selection=Вибір диска
+Disk verification schedule=Графік перевірки диска
+Dont start=Не починай
+Download Now=Завантажити зараз
+Dynamix File Integrity=Цілісність файлу Dynamix
+Error logging=Помилка реєстрації
+Excluded files=Виключені файли
+Excluded folders and files=Виключені папки та файли
+Excluded folders=Виключені папки
+File Duplicates Check=Перевірка дублікатів файлів
+Find=Знайти
+Generate Corz Files=Створення файлів Corz
+hash files=хеш-файли
+Hashing method=Метод хешування
+Header menu=Меню заголовка
+HHMM=ЧЧ:ММ
+Import=Імпорт
+Include duplicate file hashes in Find command=Включити повторювані хеші файлів у команду **Знайти**
+log files=файли журналів
+Low=Низький
+MD5=MD5
+Output file=Вихідний файл
+Placement of file integrity control=Розміщення контролю цілісності файлів
+Process priority=Пріоритет процесу
+Save new hashing results to flash=Збережіть нові результати хешування у Flash
+saved files=збережені файли
+Send notifications=Надсилати повідомлення
+SHA2=SHA2
+Syslog only=Тільки системний журнал
+Syslog Output file=Системний журнал і вихідний файл
+Task=Завдання
+Time of the day=Час доби
+Toggle all=Перемкнути все
+Tools menu=Меню інструментів
+Verification tasks=Перевірочні завдання
+view hash files=перегляд хеш-файлів
+view log files=переглядати файли журналів
+view saved files=переглядати збережені файли
+When parity operation is running=Коли виконується операція паритету
 
 :integrity_control_plug:
-> Select the placement of the file integrity control page. By default it is placed under the *Tools* menu, but it may be moved under the *header* menu.
+> Виберіть розташування сторінки контролю цілісності файлу. За замовчуванням його розміщено в меню *Інструменти*, але його можна перемістити в меню *заголовок*.
 >
-> Keep in mind that the *header* menu has limited space.
+> Майте на увазі, що *заголовок* меню має обмежений простір.
 :end
 
 :integrity_service_plug:
-> When enabled a checksum value is automatically calculated and added to the extended attributes of the newly created or modified file.
-> When it is detected that a file change has occured, but its modification time hasn't changed, then an automatic checksum verification is performed to check for any silent file corruption.
+> Якщо ввімкнено, значення контрольної суми автоматично обчислюється та додається до розширених атрибутів щойно створеного або зміненого файлу.
+> Якщо виявлено, що відбулася зміна файлу, але час його модифікації не змінився, виконується автоматична перевірка контрольної суми, щоб перевірити наявність тихого пошкодження файлу.
 >
-> The area selection can be filtered by excluding folders (shares) and/or excluding disks all together (see table below).
+> Вибір області можна відфільтрувати, виключивши папки (спільні ресурси) та/або виключивши всі диски (див. таблицю нижче).
 >
-> When the automatic hashing is disabled then manual control is required to keep information up-to-date.
+> Якщо автоматичне хешування вимкнено, для підтримки актуальності інформації потрібне ручне керування.
 :end
 
 :integrity_hashing_plug:
-> Select the preferred hashing method. SHA2 generates a 256 bits checksum value, MD5 generates a 128 bits checksum value, while BLAKE2 generates a 512 bits checksum value per file.
+> Виберіть потрібний метод хешування. SHA2 генерує 256-бітне значення контрольної суми, MD5 генерує 128-бітне значення контрольної суми, тоді як BLAKE2 генерує 512-бітове значення контрольної суми для кожного файлу.
 >
-> MD5 is the most commonly used method and should be selected when compatibility with external programs is required, BLAKE2 is the fastest method and has the highest detection grade, this is a proprietary solution though.
-> SHA2 is the official standard and is selected by default. It is the slowest of all three methods though. The BLAKE2 option is disabled if it is not supported by your processor.
-> All methods require substantial computing power from the processor and a too weak processor may not be able to perform up to expectations.
+> MD5 є найпоширенішим методом і його слід обирати, коли потрібна сумісність із зовнішніми програмами. BLAKE2 є найшвидшим методом і має найвищий рівень виявлення, однак це запатентоване рішення.
+> SHA2 є офіційним стандартом і вибрано за замовчуванням. Хоча це найповільніший з усіх трьох методів. Параметр BLAKE2 вимкнено, якщо він не підтримується вашим процесором.
+> Усі методи вимагають від процесора значної обчислювальної потужності, і занадто слабкий процесор може не відповідати очікуванням.
 :end
 
 :integrity_flash_plug:
-> When enabled a daily file on the flash device will be created, holding the checksum results for all newly or modified files of that particular day.
-> The format of this file is the same as the standard export file. The daily file is saved as */config/plugins/dynamix.file.integrity/saved/disks.export.&lt;date&gt;.new.hash*
+> Якщо ввімкнено, на флеш-пристрої буде створено щоденний файл, який містить результати контрольної суми для всіх нових або змінених файлів цього конкретного дня.
+> Формат цього файлу такий самий, як стандартний файл експорту. Щоденний файл зберігається як */config/plugins/dynamix.file.integrity/saved/disks.export.&lt;date&gt;.new.hash*
 :end
 
 :integrity_exluded_plug:
-> Select here any folders (shares) you want to exclude from the automatic hashing and verification functionality. A share existing on multiple disks will be skipped on any disk where it is present.
+> Виберіть тут будь-які папки (спільні ресурси), які ви хочете виключити з функції автоматичного хешування та перевірки. Спільний ресурс, який існує на кількох дисках, буде пропущено на будь-якому диску, де він присутній.
 >
-> Use **Custom folders / Custom files** to manually enter exclusions. Multiple exclusions are separated by a comma.<br>
-> Examples are folder names, e.g. **`.Recycle.Bin`**, file names, e.g. **`my_workfile.tmp`** or file extensions, e.g. **`*.tmp`**.
+> Використовуйте **Користувацькі папки / Користувацькі файли**, щоб вручну ввести винятки. Кілька виключень розділяються комою.<br>
+> Прикладами є імена папок, напр. **`.Recycle.Bin`**, file names, e.g. **`my_workfile.tmp`** or file extensions, e.g. **`*.tmp`**.
 >
-> Select **Apple metadata** to exclude metadata files created by Apple's netatalk (.AppleDB and .DS_Store).
+> Виберіть **Метадані Apple**, щоб виключити файли метаданих, створені Apple netatalk (.AppleDB і .DS_Store).
 :end
 
 :integrity_verification_plug:
-> When enabled a cron schedule is created to do file verification in the background. You need to select which disks participate in the automatic hashing and verification process (see table below).
-> The cron schedule can run on a selectable daily, weekly or monthly basis.
+> Якщо ввімкнено, створюється розклад cron для виконання перевірки файлів у фоновому режимі. Вам потрібно вибрати, які диски беруть участь у автоматичному хешуванні та процесі перевірки (див. таблицю нижче).
+> Розклад cron може виконуватися на вибір щоденно, щотижнево або щомісяця.
 >
-> One or more tasks can be created, each containing one or more disks. All disks under the same task are verified in parallel. This decreases the total run-time, but increases the
-> processor load. Make sure your processor can handle this load, and change grouping accordingly. At one end all disks can be put in a single task, resulting in the highest concurrency.
-> At the other end every disk can be put in its own task, resulting in the lowest processor load.
+> Можна створити одне або кілька завдань, кожне з яких містить один або більше дисків. Усі диски під одним завданням перевіряються паралельно. Це зменшує загальний час виконання, але збільшує
+> навантаження на процесор. Переконайтеся, що ваш процесор може впоратися з цим навантаженням, і відповідно змініть групування. На одному кінці всі диски можна помістити в одне завдання, що забезпечує найвищий паралелізм.
+> На іншому кінці кожен диск може бути поставлений у власне завдання, що призведе до найменшого навантаження на процесор.
 >
-> A disk with a disabled checksum box and a red background, indicates a background verification process is currently in progress for this disk. It can not be stopped.
+> Диск із вимкненим полем контрольної суми та червоним фоном означає, що для цього диска зараз виконується фонова перевірка. Це неможливо зупинити.
 >
-> When multiple tasks exist then each task is executed in the next schedule in a rotating fashion. E.g. when you have set up a weekly schedule with 3 tasks then every week
-> another task is executed and after 3 weeks the verification function has done all selected disks.
+> Якщо існує кілька завдань, кожне завдання виконується в наступному розкладі по черзі. наприклад коли ви налаштували тижневий розклад із 3 завданнями, тоді щотижня
+> виконується інше завдання, і через 3 тижні функція перевірки перевіряє всі вибрані диски.
 >
-> When the verification schedule is disabled then manual control is required to verify the correctness of the files.
+> Якщо розклад перевірки вимкнено, для перевірки правильності файлів потрібне ручне керування.
 :end
 
 :integrity_priority_plug:
-> Background processes can be run in either normal or low priority mode.
+> Фонові процеси можна запускати у звичайному або низькопріоритетному режимі.
 :end
 
 :integrity_parity_plug:
-> Before a verification task starts it can either continue as usual when a parity operation is running, or the verification task doesn't start at all.
-> In the latter case you need to wait for the next scheduled time to execute the task.
+> Перед початком завдання перевірки воно може продовжуватися як зазвичай, коли виконується операція перевірки, або завдання перевірки не запускатися взагалі.
+> В останньому випадку вам потрібно дочекатися наступного запланованого часу для виконання завдання.
 :end
 
 :integrity_day_of_the_week_plug:
-> When a weekly schedule is chosen, then select here the day of execution.
+> Якщо вибрано тижневий розклад, виберіть тут день виконання.
 :end
 
 :integrity_day_of_the_month_plug:
-> When a monthly schedule is chosen, then select here the date of execution.
+> Якщо вибрано місячний графік, виберіть тут дату виконання.
 :end
 
 :integrity_time_of_the_day_plug:
-> Select the hour and minute at which time the scheduled task will be executed. Granularity is 5 minutes.
+> Виберіть годину та хвилину, коли буде виконано заплановане завдання. Зернистість 5 хвилин.
 :end
 
 :integrity_notifications_plug:
-> Set to YES if you want to receive notifications when file corruption is detected.
-> See the notification settings on how to set up and receive "alert" notifications.
+> Установіть ТАК, якщо ви хочете отримувати сповіщення про виявлення пошкодження файлу.
+> Перегляньте параметри сповіщень, щоб дізнатися, як налаштувати та отримувати сповіщення "тривоги".
 :end
 
 :integrity_logging_plug:
-> Error logging, including file corruption detection information can be given in the system log, or saved as a file on flash.
-> Disabling error logging will suppress log creation, but it is still possible to receive notifications.
+> Реєстрацію помилок, зокрема інформацію про виявлення пошкодження файлу, можна вказати в системному журналі або зберегти як файл на флеш-пам’яті.
+> Вимкнення журналювання помилок призведе до припинення створення журналу, але все одно можна отримувати сповіщення.
 :end

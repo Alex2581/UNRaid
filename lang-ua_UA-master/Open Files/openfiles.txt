@@ -1,8 +1,10 @@
+Enable Kill Button=Увімкнути Кнопку знищення
 Process=Процес
 Kill Process=Вбити процеси
+Kill this Process holding files open=Закрийте цей процес, утримуючи файли відкритими
 Process ID=ID процесу
-Open Files=Відкрийте файли
-Files that may prevent shutdown=Файли, які можуть перешкодити вимкненню
+Open=Відкритий
+May prevent shutdown=Може запобігти вимкненню
 File Name and Path=Ім'я файлу та шлях
 An entry for bash means you have a terminal session open with the working directory on the array=Запис для bash означає, що у вас відкритий термінальний сеанс із робочим каталогом у масиві
 If smbd is listed, it means that another computer has a samba share mounted=Якщо smbd вказано в списку, це означає, що на іншому комп’ютері змонтовано спільну папку samba
